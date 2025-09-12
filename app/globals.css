@@ -1,26 +1,150 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Updated to yellow background with black text and white/ash toggles */
+  --background: #fbbf24; /* Bright yellow background */
+  --foreground: #000000; /* Black text */
+  --card: #ffffff; /* White cards */
+  --card-foreground: #000000; /* Black text on cards */
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #ffffff; /* White buttons */
+  --primary-foreground: #000000; /* Black text on buttons */
+  --secondary: #f3f4f6; /* Light ash for toggles */
+  --secondary-foreground: #000000;
+  --muted: #e5e7eb; /* Ash color for muted elements */
+  --muted-foreground: #374151;
+  --accent: #ffffff; /* White accents */
+  --accent-foreground: #000000;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #d1d5db; /* Subtle borders */
+  --input: #ffffff; /* White inputs */
+  --ring: rgba(251, 191, 36, 0.5); /* Yellow focus ring */
+  --chart-1: #fbbf24;
+  --chart-2: #ffffff;
+  --chart-3: #000000;
+  --chart-4: #6b7280;
+  --chart-5: #f3f4f6;
+  --radius: 0.5rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #fbbf24;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #f3f4f6;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #d1d5db;
+  --sidebar-ring: rgba(251, 191, 36, 0.5);
+}
+
+.dark {
+  /* Updated dark mode to maintain yellow background theme */
+  --background: #f59e0b; /* Darker yellow for dark mode */
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #e5e7eb;
+  --secondary-foreground: #000000;
+  --muted: #d1d5db;
+  --muted-foreground: #374151;
+  --accent: #ffffff;
+  --accent-foreground: #000000;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #d1d5db;
+  --input: #ffffff;
+  --ring: rgba(245, 158, 11, 0.5);
+  --chart-1: #f59e0b;
+  --chart-2: #ffffff;
+  --chart-3: #000000;
+  --chart-4: #374151;
+  --chart-5: #e5e7eb;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #f59e0b;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #e5e7eb;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #d1d5db;
+  --sidebar-ring: rgba(245, 158, 11, 0.5);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
+  body {
+    @apply bg-background text-foreground font-bold;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Updated glow effects for white buttons with yellow glow */
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .toggle-glow:hover {
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+    transition: all 0.3s ease;
+  }
+
+  /* Added white button with yellow glow hover effect */
+  .button-yellow-glow {
+    background-color: white;
+    color: black;
+    transition: all 0.3s ease;
+  }
+
+  .button-yellow-glow:hover {
+    box-shadow: 0 0 25px rgba(251, 191, 36, 0.9);
+    transform: translateY(-1px);
+  }
 }
