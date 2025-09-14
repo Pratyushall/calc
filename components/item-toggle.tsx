@@ -3,6 +3,13 @@
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import type { ItemConfig } from "@/lib/config";
 import type { ItemState } from "@/lib/types";
 
@@ -27,6 +34,7 @@ export function ItemToggle({
   return (
     <div className="flex items-center justify-between p-4 border rounded-lg bg-gray-100 hover:shadow-[0_0_15px_rgba(251,191,36,0.3)] transition-all duration-300">
       <div className="flex-1">
+        {/* Toggle + label */}
         <div className="flex items-center space-x-3">
           <div className="hover:shadow-[0_0_10px_rgba(251,191,36,0.6)] rounded transition-all duration-300 bg-gray-200 p-1">
             <Switch
@@ -52,8 +60,10 @@ export function ItemToggle({
           </div>
         </div>
 
+        {/* Inputs / dropdowns when enabled */}
         {item.enabled && isRateValid && (
-          <div className="mt-3 flex items-center space-x-4">
+          <div className="mt-3 flex flex-wrap gap-4">
+            {/* Sqft input */}
             {config.rateType.unit === "sqft" && (
               <div className="flex items-center space-x-2">
                 <Label
@@ -75,6 +85,7 @@ export function ItemToggle({
               </div>
             )}
 
+            {/* Quantity input */}
             {config.rateType.unit === "each" && (
               <div className="flex items-center space-x-2">
                 <Label
@@ -95,6 +106,56 @@ export function ItemToggle({
                 />
               </div>
             )}
+
+            {/* Dropdown if options exist */}
+            {config.options && config.options.length > 0 && (
+              <div className="flex items-center space-x-2">
+                <Label className="text-xs font-bold text-black">Type:</Label>
+                <Select
+                  value={item.selectedOption || ""}
+                  onValueChange={(value) => onUpdate({ selectedOption: value })}
+                >
+                  <SelectTrigger className="w-40 h-8 text-xs font-bold">
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {config.options.map((opt) => (
+                      <SelectItem key={opt} value={opt}>
+                        {opt}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            {/* Dimension inputs if defined */}
+            {config.dimensions &&
+              config.dimensions.map((dim) => (
+                <div key={dim} className="flex items-center space-x-2">
+                  <Label
+                    htmlFor={`${item.id}-${dim}`}
+                    className="text-xs font-bold text-black"
+                  >
+                    {dim}:
+                  </Label>
+                  <Input
+                    id={`${item.id}-${dim}`}
+                    type="number"
+                    value={item.dimensions?.[dim] || ""}
+                    onChange={(e) =>
+                      onUpdate({
+                        dimensions: {
+                          ...item.dimensions,
+                          [dim]: Number(e.target.value) || 0,
+                        },
+                      })
+                    }
+                    className="w-20 h-8 text-xs font-bold hover:shadow-[0_0_8px_rgba(251,191,36,0.4)] focus:shadow-[0_0_12px_rgba(251,191,36,0.6)] transition-all duration-300"
+                    min="0"
+                  />
+                </div>
+              ))}
           </div>
         )}
       </div>

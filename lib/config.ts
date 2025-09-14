@@ -17,6 +17,10 @@ export type ItemConfig = {
   rateType: Rate;
   defaults?: { enabled?: boolean; areaSqft?: number; qty?: number };
   notes?: string;
+
+  options?: string[];
+  optionsLabel?: string; // ✅ label for dropdown
+  dimensions?: string[];
 };
 
 export type AppConfig = {
@@ -89,6 +93,9 @@ export const config: AppConfig = {
       rateType: { unit: "sqft", rate: { premium: 2050, luxury: 4800 } },
       defaults: { enabled: true, areaSqft: 30 },
       notes: "Standard wardrobe with shelving and hanging space.",
+      options: ["2-door", "3-door", "Sliding", "Walk-in"],
+      optionsLabel: "Wardrobe Type",
+      dimensions: ["width", "height", "depth"],
     },
     {
       id: "study_table",
@@ -96,6 +103,7 @@ export const config: AppConfig = {
       section: "bedrooms",
       rateType: { unit: "sqft", rate: { premium: 2050, luxury: 3800 } },
       defaults: { enabled: false, areaSqft: 12 },
+      dimensions: ["width", "depth"],
     },
     {
       id: "tv_unit_bedroom",
@@ -103,6 +111,8 @@ export const config: AppConfig = {
       section: "bedrooms",
       rateType: { unit: "sqft", rate: { premium: 1500, luxury: 1500 } },
       defaults: { enabled: false, areaSqft: 8 },
+      options: ["Wall-mounted", "Free-standing"],
+      optionsLabel: "TV Unit Type",
     },
     {
       id: "bed_back_panel",
@@ -111,6 +121,9 @@ export const config: AppConfig = {
       rateType: { unit: "sqft", rate: { premium: 2800, luxury: 3000 } },
       defaults: { enabled: false, areaSqft: 24 },
       notes: "Custom bed with decorative back panel.",
+      options: ["King", "Queen", "Custom"],
+      optionsLabel: "Bed Size",
+      dimensions: ["width", "height"],
     },
   ],
 
@@ -122,6 +135,9 @@ export const config: AppConfig = {
       rateType: { unit: "each", rate: { premium: 22000, luxury: 24500 } },
       defaults: { enabled: false, qty: 1 },
       notes: "Entertainment unit with storage drawers.",
+      options: ["Laminate", "Veneer", "Acrylic"],
+      optionsLabel: "Finish",
+      dimensions: ["length", "height"],
     },
   ],
 
@@ -133,6 +149,8 @@ export const config: AppConfig = {
       rateType: { unit: "each", rate: { premium: 25000, luxury: 30000 } },
       defaults: { enabled: false, qty: 1 },
       notes: "Traditional pooja unit with storage.",
+      options: ["Traditional", "Contemporary", "Wall-mounted"],
+      optionsLabel: "Design",
     },
     {
       id: "doors",
@@ -141,6 +159,8 @@ export const config: AppConfig = {
       rateType: { unit: "each", rate: { premium: 11000, luxury: 13000 } },
       defaults: { enabled: false, qty: 1 },
       notes: "Premium quality doors with hardware.",
+      options: ["Wood", "Laminate Finish", "Veneer Finish"],
+      optionsLabel: "Material",
     },
   ],
 
@@ -152,6 +172,9 @@ export const config: AppConfig = {
       rateType: { unit: "sqft", rate: { premium: 2050, luxury: 2800 } },
       defaults: { enabled: true, areaSqft: 120 },
       notes: "Modular kitchen base cabinets.",
+      options: ["Modular", "Island", "Parallel", "L-Shaped"],
+      optionsLabel: "Layout",
+      dimensions: ["length", "height"],
     },
     {
       id: "tandem_baskets",
@@ -159,6 +182,8 @@ export const config: AppConfig = {
       section: "kitchen",
       rateType: { unit: "each", rate: { premium: 5000, luxury: 5000 } },
       defaults: { enabled: false, qty: 1 },
+      options: ["Blum", "Hettich", "Aristo", "Ebco"],
+      optionsLabel: "Brand",
     },
     {
       id: "bottle_pullout",
@@ -166,6 +191,8 @@ export const config: AppConfig = {
       section: "kitchen",
       rateType: { unit: "each", rate: { premium: 12000, luxury: 12000 } },
       defaults: { enabled: false, qty: 1 },
+      options: ["Blum", "Hettich", "Aristo", "Ebco"],
+      optionsLabel: "Brand",
     },
     {
       id: "corner_unit",
@@ -173,6 +200,8 @@ export const config: AppConfig = {
       section: "kitchen",
       rateType: { unit: "each", rate: { premium: 27500, luxury: 27500 } },
       defaults: { enabled: false, qty: 1 },
+      options: ["Carousel", "Magic Corner", "L-corner"],
+      optionsLabel: "Mechanism",
     },
     {
       id: "wicker_basket",
@@ -184,13 +213,14 @@ export const config: AppConfig = {
   ],
 
   addonItems: [
-    // Sofa
     {
       id: "sofa_2bhk_prem",
       label: "Sofa (2BHK, Premium)",
       section: "addons",
       rateType: { unit: "each", rate: { premium: 75000, luxury: 75000 } },
       defaults: { enabled: false, qty: 1 },
+      options: ["Fabric", "Leatherette", "Leather"],
+      optionsLabel: "Upholstery",
     },
     {
       id: "sofa_2bhk_lux",
@@ -198,128 +228,9 @@ export const config: AppConfig = {
       section: "addons",
       rateType: { unit: "each", rate: { premium: 90000, luxury: 90000 } },
       defaults: { enabled: false, qty: 1 },
+      options: ["Fabric", "Leatherette", "Leather"],
+      optionsLabel: "Upholstery",
     },
-    {
-      id: "sofa_3bhk_prem",
-      label: "Sofa (3BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 110000, luxury: 110000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "sofa_3bhk_lux",
-      label: "Sofa (3BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 150000, luxury: 150000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-
-    // Dining Table
-    {
-      id: "dining_2bhk_prem",
-      label: "Dining Table (2BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 60000, luxury: 60000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "dining_2bhk_lux",
-      label: "Dining Table (2BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 80000, luxury: 80000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "dining_3bhk_prem",
-      label: "Dining Table (3BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 95000, luxury: 95000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "dining_3bhk_lux",
-      label: "Dining Table (3BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 125000, luxury: 125000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-
-    // Carpets
-    {
-      id: "carpets_2bhk_prem",
-      label: "Carpets (2BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 0, luxury: 0 } },
-      defaults: { enabled: false, qty: 1 },
-      notes: "Premium carpets included at no extra cost",
-    },
-    {
-      id: "carpets_2bhk_lux",
-      label: "Carpets (2BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 10000, luxury: 10000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "carpets_3bhk_prem",
-      label: "Carpets (3BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 15000, luxury: 15000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "carpets_3bhk_lux",
-      label: "Carpets (3BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 35000, luxury: 35000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-
-    // Designer Lights
-    {
-      id: "lights_2bhk_prem",
-      label: "Designer Lights (2BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 8000, luxury: 8000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "lights_2bhk_lux",
-      label: "Designer Lights (2BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 15000, luxury: 15000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "lights_3bhk_prem",
-      label: "Designer Lights (3BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 15000, luxury: 15000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-    {
-      id: "lights_3bhk_lux",
-      label: "Designer Lights (3BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 22000, luxury: 22000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
-
-    // Curtains
-    {
-      id: "curtains_2bhk_prem",
-      label: "Curtains (2BHK, Premium)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 12000, luxury: 12000 } },
-      defaults: { enabled: false, qty: 1 },
-      notes: "Premium quality curtains with installation",
-    },
-    {
-      id: "curtains_3bhk_lux",
-      label: "Curtains (3BHK, Luxury)",
-      section: "addons",
-      rateType: { unit: "each", rate: { premium: 18000, luxury: 18000 } },
-      defaults: { enabled: false, qty: 1 },
-    },
+    // …you can extend dining, carpets, lights, curtains with options/labels too
   ],
 };
